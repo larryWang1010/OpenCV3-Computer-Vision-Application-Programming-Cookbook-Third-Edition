@@ -1,9 +1,11 @@
 
 
 
-# OpenCV 3 Computer Vision Application Programming Cookbook, Third Edition
+# OpenCV 3 Computer Vision Application Programming Cookbook, Third Edition 笔记注释
 This is the code repository for [OpenCV 3 Computer Vision Application Programming Cookbook, Third Edition](https://www.packtpub.com/application-development/opencv-3-computer-vision-application-programming-cookbook-third-edition?utm_source=GitHub&utm_medium=repository&utm_campaign=9781786469717), published by Packt. It contains all the supporting project files necessary to work through the book from start to finish.
-
+# Note
+1. 适配OpenCV 4.5.4
+2. 添加注释
 # About the Book
 OpenCV 3 Computer Vision Application Programming Cookbook Third Edition provides a complete introduction to the OpenCV library and explains how to build your first computer vision program. You will be presented with a variety of computer vision algorithms and exposed to important concepts in image and video analysis that will enable you to build your own computer vision applications.
 
