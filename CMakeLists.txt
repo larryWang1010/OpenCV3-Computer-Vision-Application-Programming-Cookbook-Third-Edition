@@ -25,7 +25,7 @@ message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
 if(BUILD_SINGLE)
-    add_subdirectory(Chapter10)
+    add_subdirectory(Chapter11)
 else()
     # add Chapter projects
     add_subdirectory(Chapter01)

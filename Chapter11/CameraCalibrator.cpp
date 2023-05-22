@@ -118,34 +118,30 @@ double CameraCalibrator::calibrate(const cv::Size imageSize)
 }
 
 // remove distortion in an image (after calibration)
-cv::Mat CameraCalibrator::remap(const cv::Mat &image, cv::Size &outputSize) {
+cv::Mat CameraCalibrator::remap(const cv::Mat& image, cv::Size& outputSize) {
+    cv::Mat undistorted;
 
-	cv::Mat undistorted;
+    if (outputSize.height == -1) outputSize = image.size();
 
-	if (outputSize.height == -1)
-		outputSize = image.size();
+    if (mustInitUndistort) {  // called once per calibration
 
-	if (mustInitUndistort) { // called once per calibration
-    
-		cv::initUndistortRectifyMap(
-			cameraMatrix,  // computed camera matrix
-            distCoeffs,    // computed distortion matrix
-            cv::Mat(),     // optional rectification (none) 
-			cv::Mat(),     // camera matrix to generate undistorted
-            outputSize,    // size of undistorted
-            CV_32FC1,      // type of output map
-            map1, map2);   // the x and y mapping functions
+        cv::initUndistortRectifyMap(cameraMatrix,  // computed camera matrix
+                                    distCoeffs,    // computed distortion matrix
+                                    cv::Mat(),     // optional rectification (none)
+                                    cv::Mat(),     // camera matrix to generate undistorted
+                                    outputSize,    // size of undistorted
+                                    CV_32FC1,      // type of output map
+                                    map1, map2);   // the x and y mapping functions
 
-		mustInitUndistort= false;
-	}
+        mustInitUndistort = false;
+    }
 
-	// Apply mapping functions
+    // Apply mapping functions
     cv::remap(image, undistorted, map1, map2, 
 		cv::INTER_LINEAR); // interpolation type
 
 	return undistorted;
 }
-
 
 // Set the calibration options
 // 8radialCoeffEnabled should be true if 8 radial coefficients are required (5 is default)
@@ -154,7 +150,7 @@ void CameraCalibrator::setCalibrationFlag(bool radial8CoeffEnabled, bool tangent
 
     // Set the flag used in cv::calibrateCamera()
     flag = 0;
-    if (!tangentialParamEnabled) flag += CV_CALIB_ZERO_TANGENT_DIST;
-	if (radial8CoeffEnabled) flag += CV_CALIB_RATIONAL_MODEL;
+    if (!tangentialParamEnabled) flag += cv::CALIB_ZERO_TANGENT_DIST;
+    if (radial8CoeffEnabled) flag += cv::CALIB_RATIONAL_MODEL;
 }
 
