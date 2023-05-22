@@ -3,7 +3,7 @@
 
 # set minimum required version for cmake
 cmake_minimum_required(VERSION 3.16)
-option(BUILD_ESTIMATE_F      "Build estimateF "      OFF)
+option(BUILD_ESTIMATE_F      "Build estimateF "      ON)
 option(BUILD_ROBUSTMATCHING  "Build robustmatching " ON)
 option(BUILD_ESTIMATE_H      "Build estimateH "      OFF)
 option(BUILD_MATCHING_TARGET "Build matchingTarget " OFF)
@@ -36,5 +36,5 @@ SET (IMAGES ${CMAKE_SOURCE_DIR}/images/church01.jpg
             ${CMAKE_SOURCE_DIR}/images/cookbook1.bmp
             ${CMAKE_SOURCE_DIR}/images/objects.jpg)
 FILE(COPY ${IMAGES} DESTINATION .)
-FILE(COPY ${IMAGES} DESTINATION "Debug")
-FILE(COPY ${IMAGES} DESTINATION "Release")
+# FILE(COPY ${IMAGES} DESTINATION "Debug")
+# FILE(COPY ${IMAGES} DESTINATION "Release")
