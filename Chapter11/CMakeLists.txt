@@ -5,8 +5,8 @@
 cmake_minimum_required(VERSION 3.16)
 
 option(BUILD_CALIBRATE     "build calibrate"     ON )
-option(BUILD_CAMERAPOSE    "build cameraPose"    OFF)
-option(BUILD_ESTIMATE_E    "build estimateE"     OFF)
+option(BUILD_CAMERAPOSE    "build cameraPose"    ON)
+option(BUILD_ESTIMATE_E    "build estimateE"     ON)
 option(BUILD_STEREOMATCHER "build stereoMatcher" OFF)
 
 # add executable and link libraries
