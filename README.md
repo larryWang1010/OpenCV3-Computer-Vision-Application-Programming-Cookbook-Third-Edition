@@ -13,7 +13,7 @@ OpenCV 3 Computer Vision Application Programming Cookbook Third Edition provides
 All of the code is organized into folders. Each folder starts with a number followed by the application name. For example, Chapter02.
 
 The code will look like the following:
-```
+```c++
 // Compute Laplacian using LaplacianZC class
 LaplacianZC laplacian;
 laplacian.setAperture(7); // 7x7 laplacian
@@ -41,3 +41,11 @@ Software and Hardware List
 
  <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to claim your free PDF.</i>
 <p align="center"> <a href="https://packt.link/free-ebook/9781782161486">https://packt.link/free-ebook/9781782161486 </a> </p>
+
+
+
+## 常用命令
+```shell
+# 删除当前目录下的所有文件和目录，除了Chapter11
+rm -rf !(Chapter11)
+```

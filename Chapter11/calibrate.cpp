@@ -33,20 +33,17 @@ int main()
 
 	// generate list of chessboard image filename
 	// named chessboard01 to chessboard27 in chessboard sub-dir
-	for (int i=1; i<=27; i++) {
+    for (int i = 1; i <= 27; i++) {
+        std::stringstream str;
+        str << "chessboards/chessboard" << std::setw(2) << std::setfill('0') << i << ".jpg";
+        std::cout << str.str() << std::endl;
+        filelist.push_back(str.str());
+        image = cv::imread(str.str(), 0);
+        cv::imshow("Board Image", image);
+        cv::waitKey(100);
+    }
 
-		std::stringstream str;
-		str << "chessboards/chessboard" << std::setw(2) << std::setfill('0') << i << ".jpg";
-		std::cout << str.str() << std::endl;
-
-		filelist.push_back(str.str());
-		image= cv::imread(str.str(),0);
-
-		// cv::imshow("Board Image",image);	
-		// cv::waitKey(100);
-	}
-
-	// Create calibrator object
+    // Create calibrator object
     CameraCalibrator cameraCalibrator;
 	// add the corners from the chessboard
 	cv::Size boardSize(7,5);
@@ -59,27 +56,35 @@ int main()
 	cameraCalibrator.calibrate(image.size());
 
     // Exampple of Image Undistortion
-    image = cv::imread(filelist[14],0);
-	cv::Size newSize(static_cast<int>(image.cols*1.5), static_cast<int>(image.rows*1.5));
-	cv::Mat uImage= cameraCalibrator.remap(image, newSize);
+    image = cv::imread(filelist[14], 0);
+    cv::Size newSize(static_cast<int>(image.cols * 1.5), static_cast<int>(image.rows * 1.5));
+    cv::Mat uImage = cameraCalibrator.remap(image, newSize);
 
-	// display camera matrix
-	cv::Mat cameraMatrix= cameraCalibrator.getCameraMatrix();
-	std::cout << " Camera intrinsic: " << cameraMatrix.rows << "x" << cameraMatrix.cols << std::endl;
-	std::cout << cameraMatrix.at<double>(0,0) << " " << cameraMatrix.at<double>(0,1) << " " << cameraMatrix.at<double>(0,2) << std::endl;
-	std::cout << cameraMatrix.at<double>(1,0) << " " << cameraMatrix.at<double>(1,1) << " " << cameraMatrix.at<double>(1,2) << std::endl;
-	std::cout << cameraMatrix.at<double>(2,0) << " " << cameraMatrix.at<double>(2,1) << " " << cameraMatrix.at<double>(2,2) << std::endl;
+    std::cout << "original image cols and rows"
+              << "[" << image.cols << " " << image.rows << "]" << std::endl;
+    std::cout << "remap image cols and rows"
+              << "[" << uImage.cols << " " << uImage.rows << "]" << std::endl;
 
-	cv::namedWindow("Original Image");
+    // display camera matrix
+    cv::Mat cameraMatrix = cameraCalibrator.getCameraMatrix();
+    std::cout << " Camera intrinsic: " << cameraMatrix.rows << "x" << cameraMatrix.cols << std::endl;
+    std::cout << cameraMatrix.at<double>(0, 0) << " " << cameraMatrix.at<double>(0, 1) << " "
+              << cameraMatrix.at<double>(0, 2) << std::endl;
+    std::cout << cameraMatrix.at<double>(1, 0) << " " << cameraMatrix.at<double>(1, 1) << " "
+              << cameraMatrix.at<double>(1, 2) << std::endl;
+    std::cout << cameraMatrix.at<double>(2, 0) << " " << cameraMatrix.at<double>(2, 1) << " "
+              << cameraMatrix.at<double>(2, 2) << std::endl;
+
+    cv::namedWindow("Original Image");
     cv::imshow("Original Image", image);
 	cv::namedWindow("Undistorted Image");
     cv::imshow("Undistorted Image", uImage);
 
-	// Store everything in a xml file
-	cv::FileStorage fs("calib.xml", cv::FileStorage::WRITE);
-	fs << "Intrinsic" << cameraMatrix;
-	fs << "Distortion" << cameraCalibrator.getDistCoeffs();
+    // Store everything in a xml file
+    cv::FileStorage fs("calib.xml", cv::FileStorage::WRITE);
+    fs << "Intrinsic" << cameraMatrix;
+    fs << "Distortion" << cameraCalibrator.getDistCoeffs();
 
-	cv::waitKey();
-	return 0;
+    cv::waitKey();
+    return 0;
 }

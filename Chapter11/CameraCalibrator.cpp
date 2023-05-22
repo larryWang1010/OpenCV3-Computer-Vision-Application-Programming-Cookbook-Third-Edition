@@ -53,6 +53,7 @@ int CameraCalibrator::addChessboardPoints(
         bool found = cv::findChessboardCorners(image,         // image of chessboard pattern 
 			                                   boardSize,     // size of pattern
 			                                   imageCorners); // list of detected corners
+        std::cout << "corners" << imageCorners << std::endl;
 
         // Get subpixel accuracy on the corners
 		if (found) {
