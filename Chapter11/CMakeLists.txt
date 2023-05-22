@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.16)
 option(BUILD_CALIBRATE     "build calibrate"     ON )
 option(BUILD_CAMERAPOSE    "build cameraPose"    ON)
 option(BUILD_ESTIMATE_E    "build estimateE"     ON)
-option(BUILD_STEREOMATCHER "build stereoMatcher" OFF)
+option(BUILD_STEREOMATCHER "build stereoMatcher" ON)
 
 # add executable and link libraries
 if(BUILD_CALIBRATE)
@@ -21,11 +21,11 @@ endif()
 if(BUILD_ESTIMATE_E)
     add_executable( estimateE estimateE.cpp triangulate.cpp)
     target_link_libraries( estimateE ${OpenCV_LIBS})
-endif(BUILD_ESTIMATE_E)
-if(BUILD_STEREO)
+endif()
+if(BUILD_STEREOMATCHER)
     add_executable( stereoMatcher stereoMatcher.cpp)
     target_link_libraries( stereoMatcher ${OpenCV_LIBS})
-endif(BUILD_STEREO)
+endif()
 
 # copy required images to every directory with executable
 SET (IMAGES ${CMAKE_SOURCE_DIR}/images/bench2.jpg
